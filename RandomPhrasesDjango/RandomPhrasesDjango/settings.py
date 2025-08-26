@@ -127,3 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"   # куда перенаправлять после входа
 LOGOUT_REDIRECT_URL = "/"  # после выхода
+
+from django.contrib.messages import constants as messages
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
