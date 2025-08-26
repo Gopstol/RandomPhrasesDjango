@@ -5,6 +5,7 @@ from .models import Quote
 from .forms import QuoteForm, RegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.contrib import messages
 
 
 def random_quote_view(request):
