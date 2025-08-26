@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Случайная цитата{% endblock %}
+
+{% block content %}
+<h2>Случайная цитата</h2>
+{% if quote %}
+    <blockquote style="font-size: 1.2em; border-left: 3px solid #007bff; padding-left: 10px; margin: 10px 0;">
+        "{{ quote.text }}"
+        <footer style="font-size: 0.9em; color: #666;">— {{ quote.source }}</footer>
+    </blockquote>
+    <p>Просмотров: {{ quote.views }}</p>
+    <p>👍 {{ quote.likes }} | 👎 {{ quote.dislikes }}</p>
+
+    {% if user.is_authenticated %}
+        <div style="margin-top: 10px;">
+            <form action="{% url 'like_quote' quote.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Лайк</button>
+            </form>
+            <form action="{% url 'dislike_quote' quote.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Дизлайк</button>
+            </form>
+        </div>
+    {% else %}
+        <p><a href="{% url 'login' %}">Войдите</a>, чтобы ставить лайки и дизлайки.</p>
+    {% endif %}
+
+    <form method="get" action="{% url 'random_quote' %}" style="margin-top: 10px;">
+        <button type="submit">Другая цитата</button>
+    </form>
+{% else %}
+    <p>Нет доступных цитат</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<h2>Ваши цитаты</h2>
+{% if quotes %}
+    <ul>
+        {% for q in quotes %}
+            <li>
+                <b>{{ q.text }}</b> — {{ q.source }}
+                <br>👍 {{ q.likes }} | 👎 {{ q.dislikes }} | 👁 {{ q.views }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Вы ещё не добавили ни одной цитаты.</p>
+{% endif %}
+{% endblock %}

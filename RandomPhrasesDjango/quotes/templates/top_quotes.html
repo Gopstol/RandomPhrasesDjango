@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Топ цитат{% endblock %}
+
+{% block content %}
+<h2>Топ цитат</h2>
+
+<div style="margin-bottom: 15px;">
+    <a href="?by=likes">По лайкам</a> |
+    <a href="?by=dislikes">По дизлайкам</a> |
+    <a href="?by=views">По просмотрам</a> |
+    <a href="?by=weight">По весу</a>
+</div>
+
+{% if quotes %}
+    <ol>
+        {% for q in quotes %}
+        <li>
+            <blockquote>
+                "{{ q.text }}"
+                <footer>— {{ q.source }}</footer>
+            </blockquote>
+            <p>
+                👍 {{ q.likes }} | 👎 {{ q.dislikes }} | 👁 {{ q.views }}
+                {% if q.dynamic_weight %}| Вес: {{ q.dynamic_weight|floatformat:2 }}{% endif %}
+            </p>
+        </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>Цитат нет</p>
+{% endif %}
+{% endblock %}
