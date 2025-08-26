@@ -34,6 +34,9 @@ def add_quote_view(request):
         weight = request.POST.get("weight")
         if Quote.objects.filter(text=text, source=source).exists():
             return render(request, "add_quote.html", {"error": "Такая цитата уже есть"})
+        if Quote.objects.filter(source=source).count() >= 3:
+            messages.error(request, "Из одного источника можно добавить не более 3 цитат.")
+            return redirect("add_quote")
         Quote.objects.create(text=text, source=source, author=request.user, weight=weight)
         return redirect("random_quote")
     else:
